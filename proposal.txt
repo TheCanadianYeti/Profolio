@@ -1,0 +1,165 @@
+================================================================================
+PROFOLIO — Capstone Project Proposal
+The Anti-LinkedIn: A Utility-First Professional Portfolio and Hiring Platform
+================================================================================
+Marcus Podnar   |   March 4, 2026   |   Year 1 Research Phase   |   Semester 5 (INFO34049)
+================================================================================
+
+
+1. THE PROBLEM
+--------------------------------------------------------------------------------
+Current professional networking platforms, most notably LinkedIn, have evolved
+into social media environments dominated by performative posts, engagement bait,
+and noise. Recruiters struggle with broken filters (entry-level roles requiring
+5 years of experience), and candidates lack a unified space to showcase
+multi-disciplinary work spanning code, design, and research publications.
+
+
+2. THE SOLUTION
+--------------------------------------------------------------------------------
+Profolio is a streamlined, high-utility platform where your identity is your
+work, not your posts. It focuses on deep integration with existing hosting
+platforms and high-granularity job sorting to connect the right talent with the
+right roles, without the social fluff.
+
+
+3. CORE FEATURES
+--------------------------------------------------------------------------------
+  • Anti-Feed Dashboard — A data-driven home screen showing job matches,
+    connection suggestions, and portfolio health metrics instead of a scrollable
+    social feed.
+
+  • Verified Portfolio — Integrated embeds that pull directly from the source
+    (GitHub repos, Behance galleries, medical journal abstracts).
+
+  • Granular Job Engine — Advanced filtering for internships, high-school
+    focused roles, entry-level (true 0-2 years), and senior positions using
+    keyword extraction.
+
+  • Direct-Only Networking — Communication limited to direct messaging for
+    networking or hiring; no public wall or likes.
+
+  • Recruiter Portal — A specialized view for hiring managers to filter by
+    verified skills and project types.
+
+
+4. INTEGRATION STRATEGY
+--------------------------------------------------------------------------------
+
+  A. Identity Aggregator (Account Linking)
+
+     • Workflow: User signs in with Google (OAuth 2.0) and links additional
+       platforms such as GitHub from the Settings panel.
+     • The Handshake: The app redirects the user to the platform OAuth page.
+       The platform returns an access token.
+     • Storage: Tokens are stored encrypted in the database. No passwords
+       are stored.
+     • Sync: Every 24 hours (or on manual refresh), the backend uses stored
+       tokens to call platform APIs and update the user's top repos and
+       language stats.
+
+  B. Multi-Platform Adapter
+
+     A dedicated Service Layer in the backend handles all third-party API
+     communication:
+
+     • GitHubService  — Fetches code statistics and repository data.
+     • BehanceService — Fetches design images and project galleries.
+     • PubMedService  — Fetches research abstracts and publication data.
+
+     The frontend calls a single endpoint (getUserPortfolio(id)) and the
+     backend merges all API responses into one clean JSON object.
+
+
+5. SECURITY AND AUTHENTICATION
+--------------------------------------------------------------------------------
+  • Single Sign-On (SSO): OAuth 2.0 and OpenID Connect integration for
+    Google, GitHub, and Microsoft.
+
+  • Account Linking: Multiple providers linked to one central Profolio
+    identity.
+
+  • Data Encryption: AES-256 for tokens and sensitive data at rest;
+    TLS 1.3 for all traffic in transit.
+
+  • Role-Based Access Control (RBAC): Candidates cannot access recruiter
+    tools; recruiters cannot view each other's private candidate notes.
+
+  • Audit Logs: All profile views are recorded to prevent unauthorized
+    data harvesting.
+
+
+6. HOSTING AND DEPLOYMENT
+--------------------------------------------------------------------------------
+  The application will be hosted on the Sheridan Capstone VM using the
+  following production-grade stack:
+
+  • OS:               Ubuntu Server (Linux)
+  • Web Server:       Nginx as a reverse proxy, handling SSL termination
+                      and routing traffic to application containers.
+  • Containerization: Docker and Docker Compose managing four containers:
+                        - React frontend
+                        - Node.js / ASP.NET backend
+                        - PostgreSQL (relational data)
+                        - MongoDB (portfolio metadata)
+  • CI/CD:            GitHub Actions pipeline triggers automated tests and
+                      deployment to the Sheridan VM on every push.
+  • SSL:              Certbot (Let's Encrypt) for automated HTTPS certificate
+                      provisioning and renewal.
+
+
+7. MONETIZATION
+--------------------------------------------------------------------------------
+  The platform operates on a no-subscription, no-intrusive-ads model. Revenue
+  is generated through optional, one-time transactions:
+
+  • Pay-per-Post (Employers): Small one-time fee to list a job posting;
+    also deters phony job postings.
+
+  • Featured Listings: One-time fee for a 7-day search highlight for
+    jobs or profiles.
+
+  • Verified Credential Badge: One-time fee for manual education and
+    background verification.
+
+  • Corporate Partnerships: Sponsored niche hubs (e.g., the IBM Cloud Hub).
+
+  • Portfolio Audit: One-time fee for an AI or human expert review of a
+    user's profile page.
+
+
+8. WHY THIS WINS
+--------------------------------------------------------------------------------
+  • N-Tier Architecture:  Clean separation across UI, REST API, and multiple
+                          database layers.
+  • Logic Complexity:     Matching algorithms and job-parsing logic demonstrate
+                          advanced backend design.
+  • Third-Party Depth:    Mastery of multiple complex APIs satisfies the
+                          integration complexity requirement.
+  • Market Need:          Directly addresses the documented problem of LinkedIn
+                          fatigue in the industry.
+
+
+================================================================================
+APPENDIX: BRANDING AND NAMING
+================================================================================
+
+Top Name Candidates
+  • FOLIO    — Clean, professional, and keeps the focus on the work.
+  • PROFOLIO — Blends Professional + Portfolio; stronger differentiation.
+
+Domain Strategy
+  • Clever Choice:  profol.io — Short, unique, blends Pro + Folio.
+  • Tech TLDs:      Folio.io, Profolio.app, Profolio.dev
+  • Action Prefix:  GetProfolio.com, UseProfolio.com, JoinProfolio.com
+  • Identity TLD:   Profolio.me, Folio.pro, Profolio.careers
+
+Slogans
+  • Your work. No noise.
+  • Professionalism, not Performance.
+  • Connected by Craft.
+  • The blueprint for your professional identity.
+  • Verified portfolios for the modern workforce.
+  • Hiring simplified. Networking humanized.
+
+================================================================================
