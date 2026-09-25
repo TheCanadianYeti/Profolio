@@ -107,3 +107,8 @@ One possible direction is a no-subscription, no-ads model with optional one-time
 ## License
 
 This project is for academic purposes. License TBD.
+
+## Author
+
+[Marcus Podnar](https://marcus.podnar.ca) · [GitHub](https://github.com/TheCanadianYeti) · [LinkedIn](https://www.linkedin.com/in/marcus-podnar-582187260/)
+
